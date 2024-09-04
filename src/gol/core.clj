@@ -83,7 +83,6 @@
     ; case: cell is dead => becomes alive with exactly 3 neighbours
     (if (= neighbour-count 3) 1 0)))
 
-
 (defn do-evolution "receive a gamestate as 2d array, calculate the next gamestate"
   [state]
   (into []
@@ -91,8 +90,6 @@
                        (into [] (map-indexed
                                  (fn [y cell]
                                    (get-new-state (= cell 1) (get-neighbor-count x y state))) row))) state)))
-
-
 (defn evolute-x-times
   ([state i] (evolute-x-times state i identity))
   ([state i interceptor]
@@ -100,6 +97,6 @@
      (let [next-state (do-evolution state)]
        (interceptor next-state)
        (evolute-x-times next-state (- i 1) interceptor))
-     true)))
+     state)))
 
 (evolute-x-times glider-gamestate 48 print-game)
