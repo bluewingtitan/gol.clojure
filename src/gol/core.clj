@@ -1,11 +1,5 @@
 (ns gol.core
-  (:gen-class)
-  (:require [clojure.math :as math]))
-
-(defn -main
-  "I don't do a whole lot ... yet."
-  [& args]
-  (println "Hello, World!"))
+  (:gen-class))
 
 (def test-gamestate '[[0 0 0 0 0 0 0 0]
                       [0 0 0 0 0 0 0 0]
@@ -39,7 +33,7 @@
                         [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0]])
 
 (defn get-symbol [state]
-  (if (= state 1) "☑" "☐"))
+  (if (= state 1) "O" " "))
 
 (defn get-line [line]
   (reduce str (map get-symbol line)))
@@ -98,6 +92,11 @@
      (let [next-state (do-evolution state)]
        (interceptor next-state)
        (evolute-x-times next-state (- i 1) interceptor))
-     state)))
+     (interceptor state))))
 
-; (evolute-x-times glider-gamestate 48 print-game)
+(defn -main
+  "I don't do a whole lot ... yet."
+  [& _]
+  (evolute-x-times glider-gamestate 48 print-game))
+
+(-main)
