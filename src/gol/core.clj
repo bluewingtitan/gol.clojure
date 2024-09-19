@@ -90,6 +90,7 @@
                        (into [] (map-indexed
                                  (fn [y cell]
                                    (get-new-state (= cell 1) (get-neighbor-count x y state))) row))) state)))
+
 (defn evolute-x-times
   ([state i] (evolute-x-times state i identity))
   ([state i interceptor]
@@ -99,4 +100,4 @@
        (evolute-x-times next-state (- i 1) interceptor))
      state)))
 
-(evolute-x-times glider-gamestate 48 print-game)
+; (evolute-x-times glider-gamestate 48 print-game)
